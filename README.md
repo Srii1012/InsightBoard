@@ -11,7 +11,7 @@ InsightBoard is a modern and dynamic dashboard generator built with **React** an
 ---
 
 ## 🚀 Live Preview
-(https://insight-board-ekg3.vercel.app/chart-builder)
+(https://insight-board-ivory.vercel.app/)
 
 ---
 
