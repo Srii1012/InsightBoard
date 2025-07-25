@@ -1,5 +1,121 @@
-# Getting Started with Create React App
+# 📊 InsightBoard – React + Tailwind Dashboard Builder
 
+InsightBoard is a modern and dynamic dashboard generator built with **React** and **Tailwind CSS v3.4.17**. It allows users to:
+
+- ✅ Sign up or log in
+- 📥 Dynamically input bar and line chart data
+- 📊 Preview generated charts using **Recharts**
+- 🌗 Toggle between light and dark themes
+- 🧭 Navigate across pages with a consistent sidebar
+
+---
+
+## 🚀 Live Preview
+(https://insight-board-ekg3.vercel.app/chart-builder)
+
+---
+
+## 🖼️ Project Flow
+
+```mermaid
+graph TD
+  A[Login / Signup] --> B[Dashboard]
+  B --> C[Chart Builder Form]
+  C --> D[Visual Chart Page]
+  B --> E[Profile Page]
+```
+
+> All pages (except Login) share a persistent **Sidebar layout** with navigation and theme toggle.
+
+---
+
+## 📁 Folder Structure
+
+```
+insightboard/
+├── public/
+├── src/
+│   ├── components/
+│   │   └── Layout.jsx          # Shared layout with sidebar + theme
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── ChartBuilder.jsx
+│   │   ├── VisualCharts.jsx
+│   │   └── Profile.jsx
+│   ├── App.js                  # Main route configuration
+│   ├── index.js                # React root setup
+│   ├── index.css               # Tailwind imports
+│   ├── tailwind.config.js      # Tailwind setup
+│   └── postcss.config.js
+```
+
+---
+
+## 🧩 Tech Stack
+
+| Feature       | Technology                    |
+|---------------|-------------------------------|
+| Framework     | React                         |
+| Styling       | Tailwind CSS v3.4.17          |
+| Charts        | Recharts                      |
+| Routing       | React Router DOM              | 
+| State         | React useState + localStorage |
+| Icons         | React Icons                   |
+
+---
+
+## 💡 Features
+
+- 🧾 Simple Login Input
+- 📋 Chart Builder (Add/Remove dynamic inputs)
+- 📊 Recharts for Line + Bar Charts
+- 🎨 Light/Dark Mode (persists in localStorage)
+- 🔀 Sidebar Navigation on All Pages
+- 👤 Editable Profile Page
+
+---
+
+## 🛠️ Installation
+
+```bash
+# Clone the repo
+$ git clone https://github.com/yourusername/insightboard.git
+$ cd insightboard
+
+# Install dependencies
+$ npm install
+
+# Run the dev server
+$ npm run dev
+```
+
+---
+## 📦 To-Do / Future Enhancements
+
+- [ ] Auth integration (Firebase / Supabase)
+- [ ] Backend data store (MongoDB / PostgreSQL)
+- [ ] Export/Download chart as PNG or CSV
+- [ ] Mobile responsiveness improvements
+- [ ] User roles and permissions
+
+---
+
+## 🧑‍💻 Author
+
+Made with ❤️ by **Srivathsan C. B.**
+
+Connect with me:
+- [GitHub](https://github.com/Srii1012)
+- [LinkedIn](https://linkedin.com/in/srivathsan-c-b-75577b24a)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
