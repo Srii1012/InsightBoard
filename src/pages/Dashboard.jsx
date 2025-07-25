@@ -1,51 +1,51 @@
-import { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line } from "recharts";
+import React, { useEffect, useState } from "react";
+import BarChartBox from "../components/BarChartBox";
+import LineChartBox from "../components/LineChartBox";
+import { barChartDataSet, lineChartDataSet } from "../data/chartData";
 
 const Dashboard = () => {
   const [barData, setBarData] = useState([]);
   const [lineData, setLineData] = useState([]);
 
+  // Load data from localStorage or fallback to dummy data
   useEffect(() => {
-    // Fetches chart data from localStorage
-    const bar = localStorage.getItem("barData");
-    const line = localStorage.getItem("lineData");
+    const bar = JSON.parse(localStorage.getItem("barData"));
+    const line = JSON.parse(localStorage.getItem("lineData"));
 
-    setBarData(bar ? JSON.parse(bar) : []);
-    setLineData(line ? JSON.parse(line) : []);
+    setBarData(bar || barChartDataSet.last6Months);
+    setLineData(line || lineChartDataSet.last7Days);
   }, []);
 
-  return (
-    <div>
-        <h1 className="text-3xl font-bold mb-6">Welcome to your Dashboard</h1>
-        
-        {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Bar Chart */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
-            <h3 className="text-lg font-semibold mb-2">Sales (Bar Chart)</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={barData}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="sales" fill="#3b82f6" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+  const handleRefresh = () => {
+    localStorage.removeItem("barData");
+    localStorage.removeItem("lineData");
+    setBarData(barChartDataSet.last6Months);
+    setLineData(lineChartDataSet.last7Days);
+  };
 
-          {/* Line Chart */}
-          <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
-            <h3 className="text-lg font-semibold mb-2">Signups (Line Chart)</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={lineData}>
-                <XAxis dataKey="day" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="signups" stroke="#10b981" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+  return (
+    <div className="min-h-screen p-6 bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">📊 Dashboard Overview</h1>
+        <button
+          onClick={handleRefresh}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow"
+        >
+          🔄 Reset Charts
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-lg font-semibold mb-4">Sales (Last 6 Months)</h2>
+          <BarChartBox data={barData} />
         </div>
+
+        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
+          <h2 className="text-lg font-semibold mb-4">User Signups (Last 7 Days)</h2>
+          <LineChartBox data={lineData} />
+        </div>
+      </div>
     </div>
   );
 };

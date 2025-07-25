@@ -1,23 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const ChartBuilder = () => {
   const navigate = useNavigate();
 
   const [barData, setBarData] = useState([
-    { name: "", sales: "" }
+    { name: "", sales: "", date: new Date() }
   ]);
 
   const [lineData, setLineData] = useState([
-    { day: "", signups: "" }
+    { day: "", signups: "", date: new Date() }
   ]);
 
   const handleAddBar = () => {
-    setBarData([...barData, { name: "", sales: "" }]);
+    setBarData([...barData, { name: "", sales: "", date: new Date() }]);
   };
 
   const handleAddLine = () => {
-    setLineData([...lineData, { day: "", signups: "" }]);
+    setLineData([...lineData, { day: "", signups: "", date: new Date() }]);
   };
 
   const handleBarChange = (index, key, value) => {
@@ -33,7 +35,6 @@ const ChartBuilder = () => {
   };
 
   const handleSubmit = () => {
-    // Save to localStorage (or context if added later)
     localStorage.setItem("barData", JSON.stringify(barData));
     localStorage.setItem("lineData", JSON.stringify(lineData));
     navigate("/charts");
@@ -47,20 +48,27 @@ const ChartBuilder = () => {
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Sales (Bar Chart)</h3>
         {barData.map((item, idx) => (
-          <div key={idx} className="flex gap-4 mb-2">
+          <div key={idx} className="flex gap-4 mb-2 items-center">
             <input
               type="text"
               placeholder="Month"
               value={item.name}
               onChange={(e) => handleBarChange(idx, "name", e.target.value)}
-              className="p-2 rounded bg-white dark:bg-gray-700 w-1/2"
+              className="p-2 rounded bg-white dark:bg-gray-700 w-1/3"
             />
             <input
               type="number"
               placeholder="Sales"
               value={item.sales}
               onChange={(e) => handleBarChange(idx, "sales", e.target.value)}
-              className="p-2 rounded bg-white dark:bg-gray-700 w-1/2"
+              className="p-2 rounded bg-white dark:bg-gray-700 w-1/3"
+            />
+            <DatePicker
+              selected={new Date(item.date)}
+              onChange={(date) => handleBarChange(idx, "date", date)}
+              className="p-2 rounded bg-white dark:bg-gray-700 w-full max-w-xs"
+              calendarClassName="!z-50"
+              placeholderText="Select date"
             />
           </div>
         ))}
@@ -76,20 +84,28 @@ const ChartBuilder = () => {
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Signups (Line Chart)</h3>
         {lineData.map((item, idx) => (
-          <div key={idx} className="flex gap-4 mb-2">
+          <div key={idx} className="flex gap-4 mb-2 items-center">
             <input
               type="text"
               placeholder="Day"
               value={item.day}
               onChange={(e) => handleLineChange(idx, "day", e.target.value)}
-              className="p-2 rounded bg-white dark:bg-gray-700 w-1/2"
+              className="p-2 rounded bg-white dark:bg-gray-700 w-1/3"
             />
             <input
               type="number"
               placeholder="Signups"
               value={item.signups}
-              onChange={(e) => handleLineChange(idx, "signups", e.target.value)}
-              className="p-2 rounded bg-white dark:bg-gray-700 w-1/2"
+              onChange={(e) =>
+                handleLineChange(idx, "signups", e.target.value)
+              }
+              className="p-2 rounded bg-white dark:bg-gray-700 w-1/3"
+            />
+            <DatePicker
+              selected={new Date(item.date)}
+              onChange={(date) => handleLineChange(idx, "date", date)}
+              className="p-2 rounded bg-white dark:bg-gray-700 w-full max-w-xs" calendarClassName="!z-50"
+              placeholderText="Select date"
             />
           </div>
         ))}
